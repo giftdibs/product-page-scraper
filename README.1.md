@@ -1,1 +1,0 @@
-# giftdibs/product-page-scraper
