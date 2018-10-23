@@ -1,3 +1,5 @@
+/* eslint-env browser */
+
 module.exports = function scrapeProductPage(config) {
   const isUrlRegExp = /^https?:\/\//;
 
@@ -6,11 +8,15 @@ module.exports = function scrapeProductPage(config) {
       return;
     }
 
-    const element = selectors.find((selector) => {
-      document.querySelector(selector);
-    });
+    for (let i = 0, len = selectors.length; i < len; i++) {
+      const selector = selectors[i];
+      const element = document.querySelector(selector);
+      if (element) {
+        return element;
+      }
+    }
 
-    return element
+    return false;
   }
 
   const findElements = (selectors) => {
@@ -20,7 +26,7 @@ module.exports = function scrapeProductPage(config) {
 
     const elements = document.querySelectorAll(selectors.join(', '));
 
-    return elements
+    return elements;
   }
 
   // Convert URls to data URLS.
@@ -62,7 +68,7 @@ module.exports = function scrapeProductPage(config) {
 
   // Fall back to all images if the special selector fails.
   let imageElements = findElements(config.imageSelectors);
-  if (imageElements.length === 0) {
+  if (!imageElements || imageElements.length === 0) {
     imageElements = document.querySelectorAll('img');
   }
 
@@ -81,8 +87,8 @@ module.exports = function scrapeProductPage(config) {
         ) {
           images.push({
             url: src,
-            height: rect.height,
-            width: rect.width
+            height: Math.round(rect.height),
+            width: Math.round(rect.width)
           });
         }
       }
