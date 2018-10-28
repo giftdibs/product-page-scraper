@@ -1,6 +1,6 @@
 {
   "name": "giftdibs-product-page-scraper",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "main": "index.js",
   "scripts": {
     "lint": "node ./node_modules/.bin/eslint src",
@@ -11,9 +11,6 @@
     "url": "https://github.com/giftdibs/product-page-scraper/issues"
   },
   "homepage": "https://github.com/giftdibs/product-page-scraper#readme",
-  "engines": {
-    "node": ">=8.11.1"
-  },
   "devDependencies": {
     "eslint": "5.7.0",
     "eslint-config-standard": "12.0.0",

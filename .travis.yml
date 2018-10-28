@@ -1,0 +1,16 @@
+language: node_js
+
+git:
+  depth: 5
+
+branches:
+  only:
+    - master
+    - /^[0-9]+\.[0-9]+\.[0-9]+.*/
+
+cache:
+  directories:
+    - node_modules
+
+after_success:
+  - bash <(curl -s https://giftdibs.github.io/giftdibs-ci/publish.sh)

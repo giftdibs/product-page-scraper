@@ -67,7 +67,7 @@ module.exports = function scrapeProductPage(config) {
   }
 
   // Fall back to all images if the special selector fails.
-  let imageElements = findElements(config.imagesSelectors);
+  let imageElements = findElements(config.imageSelectors);
   if (!imageElements || imageElements.length === 0) {
     imageElements = document.querySelectorAll('img');
   }

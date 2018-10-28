@@ -1,6 +1,6 @@
 module.exports = {
   'amazon.com': {
-    'imagesSelectors': [
+    'imageSelectors': [
       '#landingImage'
     ],
     'nameSelectors': [
@@ -15,7 +15,7 @@ module.exports = {
     ]
   },
   'forever21.com': {
-    'imagesSelectors': [
+    'imageSelectors': [
       'img.product_image'
     ],
     'nameSelectors': [
@@ -26,7 +26,7 @@ module.exports = {
     ]
   },
   'kohls.com': {
-    'imagesSelectors': [
+    'imageSelectors': [
       'img.PDP_heroimage'
     ],
     'nameSelectors': [
