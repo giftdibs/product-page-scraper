@@ -100,24 +100,31 @@ module.exports = function scrapeProductPage(config) {
     images = images.slice(0, 24);
   }
 
-  const promises = images.map(async (image) => {
-    if (image.url.indexOf('data:image') === 0) {
-      return image;
-    }
+  return new Promise((resolve) => {
+    const numImages = images.length;
+    const result = {
+      images: [],
+      name,
+      price
+    };
 
-    image.dataUrl = await toDataUrl(image.url);
+    let numPromisesResolved = 0;
 
-    delete image.url;
+    images.forEach((image) => {
+      if (image.url.indexOf('data:image') === 0) {
+        return image;
+      }
 
-    return image;
-  });
+      toDataUrl(image.url).then((dataUrl) => {
+        numPromisesResolved++;
+        image.dataUrl = dataUrl;
+        delete image.url;
 
-  return Promise.all(promises)
-    .then((result) => {
-      return {
-        images: result,
-        name,
-        price
-      };
+        if (numPromisesResolved === numImages) {
+          result.images = images;
+          resolve(result);
+        }
+      });
     });
+  });
 };
