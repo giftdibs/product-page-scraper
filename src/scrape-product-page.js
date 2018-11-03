@@ -52,12 +52,16 @@ module.exports = function scrapeProductPage(config) {
 
   let name = '';
   if (nameElement) {
-    name = nameElement.textContent.trim();
+    name = nameElement.textContent.trim().replace(/\t/g, ' ');
   }
 
   let price = 0;
   if (priceElement) {
-    price = priceElement.textContent.trim().replace('$', '').replace(/ /g, '');
+    price = priceElement.textContent
+      .trim()
+      .replace('$', '')
+      .replace(/ /g, '');
+
     price = parseFloat(price);
     price = Math.round(price);
 
@@ -100,31 +104,24 @@ module.exports = function scrapeProductPage(config) {
     images = images.slice(0, 24);
   }
 
-  return new Promise((resolve) => {
-    const numImages = images.length;
-    const result = {
-      images: [],
-      name,
-      price
-    };
+  const promises = images.map(async (image) => {
+    if (image.url.indexOf('data:image') === 0) {
+      return image;
+    }
 
-    let numPromisesResolved = 0;
+    image.dataUrl = await toDataUrl(image.url);
 
-    images.forEach((image) => {
-      if (image.url.indexOf('data:image') === 0) {
-        return image;
-      }
+    delete image.url;
 
-      toDataUrl(image.url).then((dataUrl) => {
-        numPromisesResolved++;
-        image.dataUrl = dataUrl;
-        delete image.url;
-
-        if (numPromisesResolved === numImages) {
-          result.images = images;
-          resolve(result);
-        }
-      });
-    });
+    return image;
   });
+
+  return Promise.all(promises)
+    .then((result) => {
+      return {
+        images: result,
+        name,
+        price
+      };
+    });
 };
