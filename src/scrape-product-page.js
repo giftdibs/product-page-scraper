@@ -29,6 +29,24 @@ module.exports = function scrapeProductPage(config) {
     return elements;
   }
 
+  // Convert URls to data URLS.
+  // https://stackoverflow.com/a/20285053/6178885
+  const toDataUrl = (url) => {
+    return new Promise((resolve) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          resolve(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.send();
+    });
+  }
+
   const nameElement = findElement(config.nameSelectors);
   const priceElement = findElement(config.priceSelectors);
 
@@ -82,9 +100,22 @@ module.exports = function scrapeProductPage(config) {
     images = images.slice(0, 24);
   }
 
-  return Promise.resolve({
-    images,
-    name,
-    price
+  const promises = images.map(async (image) => {
+    if (image.url.indexOf('data:image') === 0) {
+      return image;
+    }
+
+    image.dataUrl = await toDataUrl(image.url);
+
+    return image;
   });
+
+  return Promise.all(promises)
+    .then((result) => {
+      return {
+        images: result,
+        name,
+        price
+      };
+    });
 };
