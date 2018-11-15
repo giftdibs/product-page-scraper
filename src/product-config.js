@@ -1,4 +1,15 @@
 module.exports = {
+  'ae.com': {
+    imageSelectors: [
+      'img.item-image'
+    ],
+    nameSelectors: [
+      'h1.psp-product-name'
+    ],
+    priceSelectors: [
+      '#psp-regular-price'
+    ]
+  },
   'amazon.com': {
     imageSelectors: [
       '#landingImage'
@@ -69,6 +80,17 @@ module.exports = {
       'h3.ats-prodBuy-price'
     ]
   },
+  'gap.com': {
+    imageSelectors: [
+      '.product-photo--container img'
+    ],
+    nameSelectors: [
+      'h1.product-title'
+    ],
+    priceSelectors: [
+      '.product-price'
+    ]
+  },
   'homedepot.com': {
     imageSelectors: [
       '#mainImage'
@@ -102,6 +124,17 @@ module.exports = {
       '#prodPrice'
     ]
   },
+  'jcpenney.com': {
+    imageSelectors: [
+      '.image-desktop img'
+    ],
+    nameSelectors: [
+      'h1[data-automation-id="product-title"]'
+    ],
+    priceSelectors: [
+      'span[data-automation-id="at-price-value"]'
+    ]
+  },
   'kohls.com': {
     imageSelectors: [
       'img.PDP_heroimage'
@@ -124,6 +157,17 @@ module.exports = {
       '.product-information .price'
     ]
   },
+  'lowes.com': {
+    imageSelectors: [
+      '.product-image'
+    ],
+    nameSelectors: [
+      '.met-product-title h1'
+    ],
+    priceSelectors: [
+      '.art-pd-contractPricing'
+    ]
+  },
   'newegg.com': {
     imageSelectors: [
       '.mainSlide img'
@@ -144,6 +188,17 @@ module.exports = {
     ],
     priceSelectors: [
       '[data-test="product-price"]'
+    ]
+  },
+  'shop.lego.com': {
+    imageSelectors: [
+      'img'
+    ],
+    nameSelectors: [
+      'h1.overview__name'
+    ],
+    priceSelectors: [
+      '.product-price__list-price'
     ]
   },
   'shop.nordstrom.com': {
@@ -177,6 +232,17 @@ module.exports = {
     ],
     priceSelectors: [
       'span[data-test="product-price"]'
+    ]
+  },
+  'urbanoutfitters.com': {
+    imageSelectors: [
+      'img.c-product-image'
+    ],
+    nameSelectors: [
+      'h1.c-product-meta__h1'
+    ],
+    priceSelectors: [
+      '.c-product-meta__current-price'
     ]
   },
   'walmart.com': {
