@@ -1,3 +1,7 @@
+# 1.0.0-alpha.1 (2019-06-11)
+
+- Updated package.json to fix vulnerability warnings.
+
 # 1.0.0-alpha.0 (2018-10-28)
 
 - Initial alpha release.
