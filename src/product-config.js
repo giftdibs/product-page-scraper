@@ -1,7 +1,7 @@
 module.exports = {
   'ae.com': {
     imageSelectors: [
-      'img.item-image'
+      'img.zooming-image'
     ],
     nameSelectors: [
       'h1.psp-product-name'
@@ -44,7 +44,8 @@ module.exports = {
       '.shop-product-title h1'
     ],
     priceSelectors: [
-      '.priceView-purchase-price'
+      '.priceView-purchase-price',
+      '.priceView-customer-price'
     ]
   },
   'ebay.com': {

@@ -85,11 +85,15 @@ module.exports = function scrapeProductPage(config) {
           (rect.width >= 200 && rect.height >= 50) ||
           (rect.height >= 200 && rect.width >= 50)
         ) {
-          images.push({
-            url: src,
-            height: Math.round(rect.height),
-            width: Math.round(rect.width)
-          });
+          // Don't include duplicates.
+          const found = images.find(img => img.url === src);
+          if (!found) {
+            images.push({
+              url: src,
+              height: Math.round(rect.height),
+              width: Math.round(rect.width)
+            });
+          }
         }
       }
     }
