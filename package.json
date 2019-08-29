@@ -1,6 +1,6 @@
 {
   "name": "giftdibs-product-page-scraper",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "main": "index.js",
   "scripts": {
     "lint": "node ./node_modules/.bin/eslint src",

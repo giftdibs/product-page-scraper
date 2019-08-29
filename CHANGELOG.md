@@ -1,3 +1,7 @@
+# 1.0.0-alpha.4 (2019-08-29)
+
+- Use different method for getting image dimensions.
+
 # 1.0.0-alpha.3 (2019-08-29)
 
 - Fixed bug where duplicate images were being returned.
