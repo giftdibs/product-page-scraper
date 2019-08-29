@@ -3,6 +3,13 @@
 module.exports = function scrapeProductPage(config) {
   const isUrlRegExp = /^https?:\/\//;
 
+  const isAcceptedType = (url) => {
+    return (
+      url.indexOf('.png') === -1 &&
+      url.indexOf('.gif') === -1
+    );
+  };
+
   const findElement = (selectors) => {
     if (!selectors || !selectors.length) {
       return;
@@ -29,7 +36,7 @@ module.exports = function scrapeProductPage(config) {
     return elements;
   }
 
-  // Convert URls to data URLS.
+  // Convert URls to data URLs.
   // https://stackoverflow.com/a/20285053/6178885
   const toDataUrl = (url) => {
     return new Promise((resolve) => {
@@ -66,7 +73,7 @@ module.exports = function scrapeProductPage(config) {
     }
   }
 
-  // Fall back to all images if the special selector fails.
+  // Fallback to finding any images if the special selector fails.
   let imageElements = findElements(config.imageSelectors);
   if (!imageElements || imageElements.length === 0) {
     imageElements = document.querySelectorAll('img');
@@ -78,24 +85,36 @@ module.exports = function scrapeProductPage(config) {
     const src = element.src;
 
     if (src) {
-      const isValidUrl = (isUrlRegExp.test(src) || src.indexOf('data:image') === 0);
-      if (isValidUrl) {
-        const rect = element.getBoundingClientRect();
-        if (
-          (rect.width >= 200 && rect.height >= 50) ||
-          (rect.height >= 200 && rect.width >= 50)
-        ) {
-          // Don't include duplicates.
-          const found = images.find(img => img.url === src);
-          if (!found) {
-            images.push({
-              url: src,
-              height: Math.round(rect.height),
-              width: Math.round(rect.width)
-            });
-          }
-        }
+      const isValidUrl = (
+        isAcceptedType(src) &&
+        (
+          isUrlRegExp.test(src) ||
+          src.indexOf('data:image') === 0
+        )
+      );
+
+      if (!isValidUrl) {
+        return;
       }
+
+      // Don't include duplicates.
+      const found = images.find(img => img.url === src);
+      if (found) {
+        return;
+      }
+
+      const height = Math.round(element.naturalHeight);
+      const width = Math.round(element.naturalWidth);
+
+      if (height < 150 || width < 150) {
+        return;
+      }
+
+      images.push({
+        url: src,
+        height,
+        width
+      });
     }
   });
 

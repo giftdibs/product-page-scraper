@@ -61,7 +61,7 @@ module.exports = {
   },
   'forever21.com': {
     imageSelectors: [
-      'img.product_image'
+      '.owl-item img.product_image'
     ],
     nameSelectors: [
       '#h1Title'
