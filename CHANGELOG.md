@@ -1,3 +1,7 @@
+# 1.0.0-alpha.5 (2020-09-11)
+
+- Updated package.json to fix vulnerability warnings.
+
 # 1.0.0-alpha.4 (2019-08-29)
 
 - Use different method for getting image dimensions.
